@@ -1,0 +1,8 @@
+FROM csighub.tencentyun.com/dsn/argo-builder:v2.4.3 as argo-build
+
+
+####################################################################################################
+# argocli
+####################################################################################################
+FROM scratch as argocli
+COPY --from=argo-build /go/src/github.com/argoproj/argo/dist/argo-linux-arm64 /bin/argo

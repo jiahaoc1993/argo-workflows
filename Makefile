@@ -60,6 +60,10 @@ cli:
 cli-linux-amd64:
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v -i -ldflags '${LDFLAGS}' -o ${DIST_DIR}/argo-linux-amd64 ./cmd/argo
 
+.PHONY: cli-linux-arm64
+cli-linux-arm64:
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -v -i -ldflags '${LDFLAGS}' -o ${DIST_DIR}/argo-linux-arm64 ./cmd/argo
+
 .PHONY: cli-linux-ppc64le
 cli-linux-ppc64le:
 	CGO_ENABLED=0 GOOS=linux GOARCH=ppc64le go build -v -i -ldflags '${LDFLAGS}' -o ${DIST_DIR}/argo-linux-ppc64le ./cmd/argo
@@ -189,3 +193,9 @@ release-clis: cli-image
 
 .PHONY: release
 release: release-precheck controller-image executor-image cli-image release-clis
+
+.PHONY: docker-all
+docker-all:
+	docker build -f Dockerfile -t  csighub.tencentyun.com/dsn/argo-builder:v2.4.3 .
+	docker build -f Dockerfile-exec -t csighub.tencentyun.com/dsn/argoexec:v2.4.3 .
+	docker build -f Dockerfile-workflow-controller -t csighub.tencentyun.com/dsn/workflow-controller:v2.4.3 .
