@@ -19,7 +19,7 @@ WORKDIR /tmp
 # Install docker
 ENV DOCKER_CHANNEL stable
 ENV DOCKER_VERSION 18.09.1
-RUN wget -O docker.tgz "https://download.docker.com/linux/static/${DOCKER_CHANNEL}/x86_64/docker-${DOCKER_VERSION}.tgz" && \
+RUN wget -O docker.tgz "https://download.docker.com/linux/static/${DOCKER_CHANNEL}/aarch64/docker-${DOCKER_VERSION}.tgz" && \
     tar --extract --file docker.tgz --strip-components 1 --directory /usr/local/bin/ && \
     rm docker.tgz
 
